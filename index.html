@@ -1,7 +1,288 @@
-<!DOCTYPE html>
-<html>
+<button style = "display: none;"  value = "gavrishev" id = "matcher_name"></button>
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="contact form example">
+  <title>Contact Form Example</title>
+<!--
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-4104117"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-41041173-2');
+  </script>
+
+
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+
+  <title>Realtime search demo</title>
+</head>
+
+<style type="text/css">
+  .cont1{
+    display: inline-block;
+  }
+  .search-box{
+    margin-top: 1rem;
+  }
+  .result{
+    margin-top: 1rem;
+  }
+  .list-group-item{
+    
+      margin-top: 30px;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.24);
+  }
+</style>
+
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+
+<table style = "display: none;" id = "data_table" align="center" width="100%" border="1">
+</table>
+
+<div class = "cont1" style="width : 70%">
+      <div class="row mb-3">
+        <label for="category" class="col-sm-2 col-form-label">Category</label>
+          <div class="col-sm-10">
+            <select class="form-select" name="category" id="category" onchange = "document.getElementById('category_form').value = this.value;subcategory_selector()">
+              <option value="Не выбрано">Не выбрано</option>
+              <option value="Алкоголь">Алкоголь</option>
+              <option value="Бакалея">Бакалея</option>
+              <option value="Бургер Кинг">Бургер Кинг</option>
+              <option value="Бытовая химия">Бытовая химия</option>
+              <option value="Велорасходники">Велорасходники</option>
+              <option value="Гигиена">Гигиена</option>
+              <option value="Горячая еда СП">Горячая еда СП</option>
+              <option value="Готовая еда">Готовая еда</option>
+              <option value="Готовая еда замороженная">Готовая еда замороженная</option>
+              <option value="Детское питание">Детское питание</option>
+              <option value="Замороженная продукция">Замороженная продукция</option>
+              <option value="Зубные пасты">Зубные пасты</option>
+              <option value="Канцелярские товары">Канцелярские товары</option>
+              <option value="Карта Тройка">Карта Тройка</option>
+              <option value="Кондитерские изделия и снэки">Кондитерские изделия и снэки</option>
+              <option value="Кофе СП">Кофе СП</option>
+              <option value="Милкиты Яндекс.Шеф">Милкиты Яндекс.Шеф</option>
+              <option value="Молочная продукция">Молочная продукция</option>
+              <option value="Мясная гастрономия">Мясная гастрономия</option>
+              <option value="Мясо, рыба, птица">Мясо, рыба, птица</option>
+              <option value="Напитки">Напитки</option>
+              <option value="Настольные игры">Настольные игры</option>
+              <option value="Неиспользуемые товары">Неиспользуемые товары</option>
+              <option value="ОФЯГ">ОФЯГ</option>
+              <option value="Обеды">Обеды</option>
+              <option value="ПЕКАРНЯ, КОНДИТЕРСКАЯ">ПЕКАРНЯ, КОНДИТЕРСКАЯ</option>
+              <option value="ПФ Упаковка">ПФ Упаковка</option>
+              <option value="Печенье детское">Печенье детское</option>
+              <option value="Подгузники">Подгузники</option>
+              <option value="Разбор">Разбор</option>
+              <option value="Расходники пакеты">Расходники пакеты</option>
+              <option value="Расходные материалы">Расходные материалы</option>
+              <option value="Рыбная гастрономия">Рыбная гастрономия</option>
+              <option value="Сезонный ассортимент">Сезонный ассортимент</option>
+              <option value="Собственное производство">Собственное производство</option>
+              <option value="Собственное производство полуфабрикаты">Собственное производство полуфабрикаты</option>
+              <option value="Табак">Табак</option>
+              <option value="Товары для дома">Товары для дома</option>
+              <option value="Товары для животных">Товары для животных</option>
+              <option value="Товары для курения">Товары для курения</option>
+              <option value="Уход за полостью рта детский">Уход за полостью рта детский</option>
+              <option value="Фасовка">Фасовка</option>
+              <option value="Хлеб и торты свежие">Хлеб и торты свежие</option>
+              <option value="Хлеб свежий">Хлеб свежий</option>
+              <option value="Хлебобулочные изделия">Хлебобулочные изделия</option>
+              <option value="Хозтовары">Хозтовары</option>
+              <option value="Чулочно-носочные изделия">Чулочно-носочные изделия</option>
+              <option value="Яйца">Яйца</option>
+              <option value="Яндекс">Яндекс</option>
+            </select>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+      <label for="subcategory" class="col-sm-2 col-form-label">Subcategory</label>
+        <div class="col-sm-10">
+          <select class="form-select" name="subcategory" id="subcategory" onchange = "document.getElementById('subcategory_form').value = this.value; subcategory2_selector()">
+          </select>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+      <label for="subcategory2" class="col-sm-2 col-form-label">Subcategory2</label>
+        <div class="col-sm-10">
+          <select class="form-select" name="subcategory2" id="subcategory2" onchange = "document.getElementById('subcategory2_form').value = this.value; subcategory3_selector()">
+          </select>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+      <label for="subcategory3" class="col-sm-2 col-form-label">Subcategory3</label>
+        <div class="col-sm-10">
+          <select class="form-select" name="subcategory3" id="subcategory3" onchange = "document.getElementById('subcategory3_form').value = this.value; subcategory4_selector()">
+          </select>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+      <label for="subcategory4" class="col-sm-2 col-form-label">Subcategory4</label>
+        <div class="col-sm-10">
+          <select class="form-select" name="subcategory4" id="subcategory4" onchange = "document.getElementById('subcategory4_form').value = this.value;">
+          </select>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+      <label for="analogflg" class="col-sm-2 col-form-label">Товар-аналог</label>
+        <div class="col-sm-10">
+          <select class="form-select" name="analogflg" id="analogflg" onchange = "document.getElementById('analogflg_form').value = this.value;">
+              <option value="Нет">Нет</option>
+              <option value="Да">Да</option>
+          </select>
+        </div>
+      </div>
+</div>
+      <div class="cont1" style = "position:absolute;right: 0;">
+
+        <img id = "item_picture" src="" alt= "Товар конкурента" width="300">
+      </div>  
+
+<!-- START HERE -->
+   <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+  <form class="gform pure-form pure-form-stacked" method="POST" data-email="comp.matcher@gmail.com"
+  action="https://script.google.com/macros/s/AKfycbxRJjKF_qchU1b3FS1B_ROPTE0qnMdKgwpjCMkaLg/exec">
+  
+    <!-- change the form action to your script url -->
+
+      <fieldset class="pure-group">
+        <input style = "width:100%" id="comp_item" name="comp_item" type="text" value="Товар конкурента" readonly="" />
+      </fieldset>
+
+      <fieldset class="pure-group">
+        <input style = "width:100%" id="item_tst" name="our_item" type="text" value="Товар из нашей базы" readonly="" />
+      </fieldset>
+<!--
+      <fieldset class="pure-group" style="display: none">
+        <input type="checkbox" id="analogflg_form" name="analogflg" readonly="" />
+      </fieldset> -->
+
+      <fieldset class="pure-group" style="display: none">
+        <label for="analogflg_form">Analog </label>
+        <input style = "width:100%" id="analogflg_form" name="analogflg" type="text" value="Нет" readonly="" />
+      </fieldset>
+
+      <fieldset class="pure-group" style="display: none">
+        <label for="category">Category </label>
+        <input style = "width:100%" id="category_form" name="category" type="text" value="Не выбрано" readonly="" />
+      </fieldset>
+
+      <fieldset class="pure-group" style="display: none">
+        <label for="subcategory">Subcategory </label>
+        <input style = "width:100%" id="subcategory_form" name="subcategory" type="text" value="Не выбрано" readonly="" />
+      </fieldset>
+
+      <fieldset class="pure-group" style="display: none">
+        <label for="subcategory2">Subcategory2 </label>
+        <input style = "width:100%" id="subcategory2_form" name="subcategory2" type="text" value="Не выбрано" readonly="" />
+      </fieldset>
+
+      <fieldset class="pure-group" style="display: none">
+        <label for="subcategory3">Subcategory3 </label>
+        <input style = "width:100%" id="subcategory3_form" name="subcategory3" type="text" value="Не выбрано" readonly="" />
+      </fieldset>
+
+      <fieldset class="pure-group" style="display: none">
+        <label for="subcategory4">Subcategory4 </label>
+        <input style = "width:100%" id="subcategory4_form" name="subcategory4" type="text" value="Не выбрано" readonly="" />
+      </fieldset>
+
+      <fieldset class="pure-group" style="display: none">
+        <label for="matcher">Matcher</label>
+        <input style = "width:100%" id="matcher" name="matcher" type="text" value="Не указано" readonly="" />
+      </fieldset>
+
+
+      <button class="button-success pure-button button-xlarge">
+        <i class="fa fa-paper-plane"></i>&nbsp;Send</button>
+    </div>
+
+  </form>
+
+  <!-- Submit the Form to Google Using "AJAX" -->
+ <script data-cfasync="false" type="text/javascript" src="form-submission-handler.js"></script>
+<!-- END -->
+
+  <div class="container">
+
+    <div class="col-xs-8 col-xs-offset-2 search-box">
+      <div class="input-group">
+        <input oninput="updateResult(this.value)" type="search" class="form-control" placeholder="Search..."/>
+      </div>
+    </div>
+
+    <div class="container">
+      <ul class="list-group result"></ul>
+    </div>
+
+  </div>
+
 </body>
+
+
+
+<script src="main.js"></script>
+
+<script type="text/javascript">
+  function onLoadFunctions() {
+    document.getElementById("matcher").value = document.getElementById("matcher_name").value;
+
+   var app = "https://script.google.com/macros/s/AKfycby21QH3M11QPEvjW-JhUUuRPzsHy1LmvYb5VtVa3uW4DUILTqKS/exec",
+      output = '',
+      xhr = new XMLHttpRequest();
+   xhr.open('GET', app);
+   xhr.onreadystatechange = function() {
+     if (xhr.readyState !== 4) return;
+
+     if (xhr.status == 200) {
+        try {
+            var r = JSON.parse(xhr.responseText),
+               result = r["result"];
+            for (var i = 0; i < result.length; i++){
+                  if(r["result"][i][5] == document.getElementById("matcher_name").value && r["result"][i][4] == 0){
+                    var obj = r["result"][i];
+                    output += "<tr><td>" + obj.join("</td><td>") + "</td></td>";
+                  }
+            }
+        } catch(e) {}
+     } 
+   document.getElementById('data_table').innerHTML = output;
+   alert("Все подгрузилось");
+   }
+   xhr.send()
+    /*
+    var comp_item = document.getElementById("comp_item");
+    var t = document.getElementById("data_table");
+    comp_item.value = t.rows[0].cells[0].innerHTML;
+    try{
+    var l = t.rows[0].cells[1].innerHTML.split(",")[0].split("[")[1].split("]")[0];
+    document.getElementById("item_picture").src = l.substr(1,l.length-2);
+    }
+    catch {
+      document.getElementById("item_picture").src = ""
+    }
+    */
+  }
+  window.onload = onLoadFunctions;
+</script>
 </html>
