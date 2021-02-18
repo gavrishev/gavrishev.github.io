@@ -49,7 +49,17 @@
 <table style = "display: none;" id = "data_table" align="center" width="100%" border="1">
 </table>
 
-<div class = "cont1" style="width : 70%">
+      <div class="row mb-3">
+      <label for="matcher_id" class="col-sm-2 col-form-label">User</label>
+        <div class="col-sm-10">
+          <select class="form-select" name="matcher_id" id="matcher_id" onchange = "document.getElementById('subcategory_form').value = this.value; subcategory2_selector()">
+            <option value="gavrishev">gavrishev</option>
+            <option value="developer">developer</option>
+          </select>
+        </div>
+      </div>
+
+      <div class = "cont1" style="width : 70%">
       <div class="row mb-3">
         <label for="category" class="col-sm-2 col-form-label">Category</label>
           <div class="col-sm-10">
