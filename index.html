@@ -186,6 +186,14 @@
       </fieldset> -->
 
       <fieldset class="pure-group" style="display: none">
+        <input style = "width:100%" id="tmp_sku_id" name="tmp_sku_id" type="text" value="tmp_sku_id" readonly="" />
+      </fieldset>
+
+      <fieldset class="pure-group" style="display: none">
+        <input style = "width:100%" id="sku_id" name="sku_id" type="text" value="sku_id" readonly="" />
+      </fieldset>
+
+      <fieldset class="pure-group" style="display: none">
         <label for="analogflg_form">Analog </label>
         <input style = "width:100%" id="analogflg_form" name="analogflg" type="text" value="Нет" readonly="" />
       </fieldset>
@@ -268,13 +276,14 @@
                result = r["result"];
             var j = 0;
             for (var i = 0; i < result.length; i++){
-                  if(r["result"][i][5] == document.getElementById("matcher_id").value && r["result"][i][4] == 0){
+                  if(r["result"][i][6] == document.getElementById("matcher_id").value && r["result"][i][5] == 0){
                     var obj = r["result"][i];
                     if (j == 0){
-                      document.getElementById("comp_item").value = obj[0];
+                      document.getElementById("comp_item").value = obj[1];
+                      document.getElementById("tmp_sku_id").value = obj[0];
                       try{
-                      var l = obj[1].split(",")[0].split("[")[1].split("]")[0];
-                      document.getElementById("item_picture").src = l.substr(1,l.length-2);
+                      var l = obj[2].split(",")[0];//.split("[")[1].split("]")[0];
+                      document.getElementById("item_picture").src = l;//.substr(1,l.length-2);
                       }
                       catch {
                         document.getElementById("item_picture").src = ""
@@ -334,9 +343,9 @@
                ];
                out = "<option value='Не выбрано'>Не выбрано</option>"
             for (var i = 0; i < result.length; i++){
-                if (list.indexOf(r["result"][i][5]) == -1 && r["result"][i][5] != ''){
-                  list.push(r["result"][i][5]);
-                  out += "<option value='" + r["result"][i][5] + "''>" + r["result"][i][5] + "</option>";
+                if (list.indexOf(r["result"][i][6]) == -1 && r["result"][i][6] != ''){
+                  list.push(r["result"][i][6]);
+                  out += "<option value='" + r["result"][i][6] + "''>" + r["result"][i][6] + "</option>";
                 };
             }
             document.getElementById("matcher_id").innerHTML = out;

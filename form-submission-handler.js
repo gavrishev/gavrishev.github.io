@@ -54,11 +54,12 @@
     var comp_item = document.getElementById("comp_item");
     var t = document.getElementById("data_table");
     t.appendChild(t.rows[0]);
-    comp_item.value = t.rows[0].cells[0].innerHTML;
+    comp_item.value = t.rows[0].cells[1].innerHTML;
+    document.getElementById("tmp_sku_id").value = t.rows[0].cells[0].innerHTML;
     document.getElementById("matcher").value = document.getElementById("matcher_id").value;
     try{
-    var l = t.rows[0].cells[1].innerHTML.split(",")[0].split("[")[1].split("]")[0];
-    document.getElementById("item_picture").src = l.substr(1,l.length-2);
+    var l = t.rows[0].cells[2].innerHTML.split(",")[0];//.split("[")[1].split("]")[0];
+    document.getElementById("item_picture").src = l;//.substr(1,l.length-2);
     }
     catch {
       document.getElementById("item_picture").src = ""
