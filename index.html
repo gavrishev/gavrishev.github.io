@@ -49,13 +49,11 @@
 <table style = "display: none;" id = "data_table" align="center" width="100%" border="1">
 </table>
     <div class = "cont1" style="width : 70%">
-      
+
       <div class="row mb-3">
       <label for="matcher_id" class="col-sm-2 col-form-label">User</label>
         <div class="col-sm-10">
-          <select class="form-select" name="matcher_id" id="matcher_id" onchange = "document.getElementById('subcategory_form').value = this.value; subcategory2_selector()">
-            <option value="gavrishev">gavrishev</option>
-            <option value="developer">developer</option>
+          <select class="form-select" name="matcher_id" id="matcher_id" onchange = "getGDdata();">
           </select>
         </div>
       </div>
@@ -254,6 +252,69 @@
 <script src="main.js"></script>
 
 <script type="text/javascript">
+  function getGDdata() {
+    document.getElementById("matcher").value = document.getElementById("matcher_id").value;
+
+   var app = "https://script.google.com/macros/s/AKfycby21QH3M11QPEvjW-JhUUuRPzsHy1LmvYb5VtVa3uW4DUILTqKS/exec",
+      output = '',
+      xhr = new XMLHttpRequest();
+   xhr.open('GET', app);
+   xhr.onreadystatechange = function() {
+     if (xhr.readyState !== 4) return;
+
+     if (xhr.status == 200) {
+        try {
+            var r = JSON.parse(xhr.responseText),
+               result = r["result"];
+            var j = 0;
+            for (var i = 0; i < result.length; i++){
+                  if(r["result"][i][5] == document.getElementById("matcher_id").value && r["result"][i][4] == 0){
+                    var obj = r["result"][i];
+                    if (j == 0){
+                      document.getElementById("comp_item").value = obj[0];
+                      try{
+                      var l = obj[1].split(",")[0].split("[")[1].split("]")[0];
+                      document.getElementById("item_picture").src = l.substr(1,l.length-2);
+                      }
+                      catch {
+                        document.getElementById("item_picture").src = ""
+                      }
+                    };
+                    output += "<tr><td>" + obj.join("</td><td>") + "</td></td>";
+                    j++;
+                  }
+            }
+        } catch(e) {}
+     } 
+   document.getElementById('data_table').innerHTML = output;
+   //alert("Все подгрузилось");
+   }
+   xhr.send()
+  }  
+</script>
+<!--
+<script data-cfasync="false" type="text/javascript">
+  (function() {
+  function onStart() {
+    var comp_item = document.getElementById("comp_item");
+    var t = document.getElementById("data_table");
+    alert(t.innerHTML);
+    comp_item.value = t.rows[0].cells[0].innerHTML;
+    try{
+    var l = t.rows[0].cells[1].innerHTML.split(",")[0].split("[")[1].split("]")[0];
+    document.getElementById("item_picture").src = l.substr(1,l.length-2);
+    }
+    catch {
+      document.getElementById("item_picture").src = ""
+    }
+    
+  }
+  })();  
+</script>
+-->
+
+
+<script type="text/javascript">
   function onLoadFunctions() {
     document.getElementById("matcher").value = document.getElementById("matcher_name").value;
 
@@ -268,30 +329,21 @@
         try {
             var r = JSON.parse(xhr.responseText),
                result = r["result"];
+               var list = [
+               "Не выбрано"
+               ];
+               out = "<option value='Не выбрано'>Не выбрано</option>"
             for (var i = 0; i < result.length; i++){
-                  if(r["result"][i][5] == document.getElementById("matcher_name").value && r["result"][i][4] == 0){
-                    var obj = r["result"][i];
-                    output += "<tr><td>" + obj.join("</td><td>") + "</td></td>";
-                  }
+                if (list.indexOf(r["result"][i][5]) == -1 && r["result"][i][5] != ''){
+                  list.push(r["result"][i][5]);
+                  out += "<option value='" + r["result"][i][5] + "''>" + r["result"][i][5] + "</option>";
+                };
             }
+            document.getElementById("matcher_id").innerHTML = out;
         } catch(e) {}
      } 
-   document.getElementById('data_table').innerHTML = output;
-   alert("Все подгрузилось");
    }
    xhr.send()
-    /*
-    var comp_item = document.getElementById("comp_item");
-    var t = document.getElementById("data_table");
-    comp_item.value = t.rows[0].cells[0].innerHTML;
-    try{
-    var l = t.rows[0].cells[1].innerHTML.split(",")[0].split("[")[1].split("]")[0];
-    document.getElementById("item_picture").src = l.substr(1,l.length-2);
-    }
-    catch {
-      document.getElementById("item_picture").src = ""
-    }
-    */
   }
   window.onload = onLoadFunctions;
 </script>
